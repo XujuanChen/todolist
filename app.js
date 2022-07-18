@@ -1,8 +1,9 @@
-const todoBtn = document.querySelector(".todo-btn");
+const todoBtn = document.querySelector('.todo-btn');
 const todoInput = document.querySelector('.todo-input');
-const todoList = document.querySelector(".todo-list");
-const todoFilter = document.querySelector(".todo-filter");
+const todoList = document.querySelector('.todo-list');
+const todoFilter = document.querySelector('.todo-filter');
 
+document.addEventListener('DOMContentLoaded', getTodos);
 todoBtn.addEventListener('click', addItem);
 todoList.addEventListener('click', removeCheck);
 todoFilter.addEventListener('click', sortItem);
@@ -15,6 +16,8 @@ function addItem(e) {
 
     const newLi = document.createElement('li');
     newLi.append(todoInput.value);
+    saveLocalStorage(todoInput.value);
+
     newLi.classList.add('todo-li');
     newDiv.append(newLi);
     todoInput.value = '';
@@ -38,6 +41,8 @@ function removeCheck(e) {
     if(target.classList[0] === 'trash-btn'){
         const todo = target.parentElement;
         todo.classList.add('fall');
+        removeLocalTodos(todo);
+
         todo.addEventListener('transitionend', function(){
             todo.remove();
         })
@@ -49,9 +54,9 @@ function removeCheck(e) {
 }
 
 function sortItem(e) {
-    const items = todoList.childNodes;
+    const todos = todoList.childNodes;
     // console.log(items);
-    items.forEach(function(item){
+    todos.forEach(function(item){
         switch(e.target.value){
             case "all":
                 item.style.display = 'flex';
@@ -72,4 +77,62 @@ function sortItem(e) {
                 break;
         }
     })    
+}
+
+//localStorage
+function saveLocalStorage(todo) {
+    let todos;
+    if(localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.push(todo);
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function removeLocalTodos(todo) {
+    let todos;
+    if(localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    const todoIndex = todo.children[0].innerText;
+    todos.splice(todos.indexOf(todoIndex), 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
+
+}
+
+function getTodos(){
+    let todos;
+    if(localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    
+    todos.forEach(function(todo){
+        const newDiv = document.createElement('div');
+        newDiv.classList.add("todo-div");
+    
+        const newLi = document.createElement('li');
+        newLi.append(todo);
+        newLi.classList.add('todo-li');
+        newDiv.append(newLi);
+        todoInput.value = '';
+
+        const checkedBtn = document.createElement('button');
+        checkedBtn.innerHTML = '<i class="fas fa-check"></i>';
+        checkedBtn.classList.add('checked-btn');
+        newDiv.append(checkedBtn);
+
+        const trashBtn = document.createElement('button');
+        trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        trashBtn.classList.add('trash-btn');
+        newDiv.append(trashBtn);
+    
+        todoList.append(newDiv);
+    })
+
 }
