@@ -3,6 +3,7 @@ const todoInput = document.querySelector('.todo-input');
 const todoList = document.querySelector(".todo-list");
 
 todoBtn.addEventListener('click', addItem);
+todoList.addEventListener('click', removeCheck);
 
 function addItem(e) {
     e.preventDefault();
@@ -28,3 +29,13 @@ function addItem(e) {
     todoList.append(newDiv);
 }
 
+function removeCheck(e) {
+    const target = e.target;
+    if(target.classList[0] === 'trash-btn'){
+        target.parentElement.remove();
+    }
+   
+    if(target.classList[0] === 'checked-btn'){
+        target.parentElement.classList.toggle('checked');
+    }
+}
