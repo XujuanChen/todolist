@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(120deg, coral, antiquewhite);
+    color: #222;
+    font-family: 'Edu SA Beginner', cursive, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    font-size: 1.75rem;;
+}
+
+header, form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input, form button {
+    font-size: 2rem;
+    padding: 0.5rem;
+    border: none;
+    background-color: white;
+}
+
+form button {
+    color: coral;
+    background-color: antiquewhite;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+form button:hover {
+    color: antiquewhite;
+    background-color: coral;
+}
+
+.todo-content {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.todo-list {
+    min-height: 15vh;
+    min-width: 30%;
+    font-size: 1.75rem;
+    list-style: none;
+}
+
+.todo-div {
+    margin: 0.5rem 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-li {
+    flex: 1;
+    padding:0 0.5rem;
+}
+
+.checked-btn, .trash-btn {
+    background-color: antiquewhite;
+    color: coral;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.checked-btn:hover, .trash-btn:hover {
+    color:antiquewhite;
+    background-color: coral;
+}
+
+
