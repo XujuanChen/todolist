@@ -1,9 +1,11 @@
 const todoBtn = document.querySelector(".todo-btn");
 const todoInput = document.querySelector('.todo-input');
 const todoList = document.querySelector(".todo-list");
+const todoFilter = document.querySelector(".todo-filter");
 
 todoBtn.addEventListener('click', addItem);
 todoList.addEventListener('click', removeCheck);
+todoFilter.addEventListener('click', sortItem);
 
 function addItem(e) {
     e.preventDefault();
@@ -12,21 +14,23 @@ function addItem(e) {
     newDiv.classList.add("todo-div");
 
     const newLi = document.createElement('li');
-    newLi.classList.add('todo-li');
     newLi.append(todoInput.value);
+    newLi.classList.add('todo-li');
     newDiv.append(newLi);
+    todoInput.value = '';
 
     const checkedBtn = document.createElement('button');
-    checkedBtn.classList.add('checked-btn');
     checkedBtn.innerHTML = '<i class="fas fa-check"></i>';
+    checkedBtn.classList.add('checked-btn');
     newDiv.append(checkedBtn);
 
     const trashBtn = document.createElement('button');
-    trashBtn.classList.add('trash-btn');
     trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+    trashBtn.classList.add('trash-btn');
     newDiv.append(trashBtn);
 
     todoList.append(newDiv);
+
 }
 
 function removeCheck(e) {
@@ -42,4 +46,30 @@ function removeCheck(e) {
     if(target.classList[0] === 'checked-btn'){
         target.parentElement.classList.toggle('checked');
     }
+}
+
+function sortItem(e) {
+    const items = todoList.childNodes;
+    // console.log(items);
+    items.forEach(function(item){
+        switch(e.target.value){
+            case "all":
+                item.style.display = 'flex';
+                break;
+            case "completed":
+                if(item.classList.contains('checked')){
+                   item.style.display = 'flex';
+                }else{
+                    item.style.display = 'none';
+                }
+                break;
+            case "uncompleted":
+                if(!item.classList.contains('checked')){
+                    item.style.display = 'flex';
+                 }else{
+                     item.style.display = 'none';
+                 }
+                break;
+        }
+    })    
 }

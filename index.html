@@ -26,10 +26,16 @@
                 <button type="submit" class="todo-btn">
                     <i class="fas fa-plus-square"></i>
                 </button>
+                <div class="select">
+                    <select name="todos" class="todo-filter">
+                        <option value="all">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="uncompleted">Uncompleted</option>
+                    </select>
+                </div>
             </form>
-
             <div class="todo-content">
-                <ul class="todo-list">memo</ul>
+                <ul class="todo-list"></ul>
             </div>
         </div>
     </section>
