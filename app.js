@@ -32,7 +32,11 @@ function addItem(e) {
 function removeCheck(e) {
     const target = e.target;
     if(target.classList[0] === 'trash-btn'){
-        target.parentElement.remove();
+        const todo = target.parentElement;
+        todo.classList.add('fall');
+        todo.addEventListener('transitionend', function(){
+            todo.remove();
+        })
     }
    
     if(target.classList[0] === 'checked-btn'){
